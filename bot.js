@@ -306,14 +306,14 @@ function play(guild, song) {
 			play(guild, serverQueue.songs[0]);
 		})
 		.on('error', error => console.error(error));
-	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+	dispatcher.setVolumeLogarithmic(serverQueue.volume / 40);
 
 	serverQueue.textChannel.send(`**${song.title}**, is now playing!`);
 }
 
 
 client.on('message', message => {
-    if (message.content === 'help') {
+    if (message.content === '.help') {
         let helpEmbed = new Discord.RichEmbed()
         .setTitle('**أوامر الميوزك...**')
         .setDescription('**برفكس البوت (!)**')
