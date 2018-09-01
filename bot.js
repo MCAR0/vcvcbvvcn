@@ -14,43 +14,6 @@ client.on('message', msg => {
 
 
 
-client.on('message',async msg => {
-     if(msg.channel.type === "dm") return;
-  if(msg.author.bot) return;
-   var everyone = msg.guild.defaultRole;
-  var p = "*";
-  if(msg.content.startsWith(p + "setstats")) {
-  if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **go play minecraft**');
-  if(!msg.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS'])) return msg.reply('❌ **البوت لا يمتلك صلاحية**');
-  var ggg= msg.guild.createChannel('SERVER STATS', 'category').then(kk => {
-           var ccc =msg.guild.createChannel('SERVER STATS', 'voice').then(al => {
-                var aa =msg.guild.createChannel('SERVER STATS', 'voice').then(alp => {
-                   var aaa =msg.guild.createChannel('SERVER STATS', 'voice').then(alph => {
-                       var a =msg.guild.createChannel('SERVER STATS', 'voice').then(yo => {
-       al.setParent(kk);
-       alp.setParent(kk);
-       alph.setParent(kk);
-       yo.setParent(kk);
-     al.overwritePermissions(everyone, { CONNECT: false });
-      alp.overwritePermissions(everyone, { CONNECT: false });
-       alph.overwritePermissions(everyone, { CONNECT: false });
-        yo.overwritePermissions(everyone, { CONNECT: false });
-  setInterval(() => {
-     al.setName('Members: ' + msg.guild.members.filter(m => !(m.user.bot)).size, 'voice');
-      alp.setName('Bots: ' + msg.guild.members.filter(m => m.user.bot).size, 'voice');
-        alph.setName('Text channels: ' + msg.guild.channels.filter(c => c.type == 'text').size, 'voice');
-         yo.setName('Voice channels: ' + (msg.guild.channels.filter(c => c.type == 'voice').size - 3), 'voice');
- },1000);
-                       })
-                   })
-    
-                })
-           })
-  })
-           
-  }
- 
-});
 
 
 
@@ -62,7 +25,7 @@ client.on('message',async msg => {
                 if(message.content === prefix + "inv") {
                     let embed = new Discord.RichEmbed ()
                     embed.setTitle("** Click To Invite This BOT **")
-                    .setURL("رابط اضافة البوت");
+                    .setURL("https://discordapp.com/api/oauth2/authorize?client_id=450941189244583937&scope=bot&permissions=1");
                    message.channel.sendEmbed(embed);
                   }
 });
