@@ -40,40 +40,102 @@ client.on('message', msg => {
 
 
 
-
-
-
-
-
-
-
-
-
 client.on('message',async msg => {
-  if(msg.content.startsWith(prefix + "setDate")) {
-  if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **أنت لا تملك الصلاحيه **');
+     if(msg.channel.type === "dm") return;
+  if(msg.author.bot) return;
+  var p = "z";
+  if(msg.content.startsWith(p + "setstats")) {
+  if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **go play minecraft**');
   if(!msg.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS'])) return msg.reply('❌ **البوت لا يمتلك صلاحية**');
-    var args = msg.content.split(' ').slice(1).join(' ');
-
-
-  msg.channel.send(':white_check_mark: » تم عمل روم التاريخ   بنجاح');
-  msg.guild.createChannel(`DATE : []`, 'voice').then(time => {
-
-    time.overwritePermissions(msg.guild.id, {
+  var ggg= msg.guild.createChannel('SERVER STATS', 'category').then(kk => {
+           var ccc =msg.guild.createChannel('SERVER STATS', 'voice').then(al => {
+                var aa =msg.guild.createChannel('SERVER STATS', 'voice').then(alp => {
+                   var aaa =msg.guild.createChannel('SERVER STATS', 'voice').then(alph => {
+       al.setParent(kk);
+       alp.setParent(kk);
+       alph.setParent(kk);
+       
+     al.overwritePermissions(msg.guild.id, {
+      CONNECT: false,
+      SPEAK: false
+    });
+     alp.overwritePermissions(msg.guild.id, {
+      CONNECT: false,
+      SPEAK: false
+    });
+     alph.overwritePermissions(msg.guild.id, {
       CONNECT: false,
       SPEAK: false
     });
   setInterval(() => {
       var currentTime = new Date(),
+hours = currentTime.getHours() + 3 ,
+minutes = currentTime.getMinutes(),
+Seconds = currentTime.getSeconds(),
 Year = currentTime.getFullYear(),
 Month = currentTime.getMonth() + 1,
 Dat = currentTime.getDate()
-      time.setName(` ${args} : [${Year} - ${Month} - ${Dat}]`);
+if (minutes < 10) {
+minutes = "0" + minutes;
+}
+var suffix = "AM";
+if (hours >= 12) {
+suffix = "PM";
+hours = hours - 12;
+}
+if (hours == 0) {
+hours = 12;
+}
+     al.setName(`Voice Online :[ ${msg.guild.members.filter(m => m.voiceChannel).size} ]`);
+      alp.setName(`Time :[${hours} : ${minutes} : ${Seconds} ${suffix}]`);
+        alph.setName(`[ Date : [${Year} - ${Month} - ${Dat} ]`);
  },1000);
-  });
+                   })
+    
+                })
+           })
+  })
+           
   }
  
 });
+
+
+
+
+
+client.on('message', message =>{
+    let messageArray = message.content.split(" ");
+    let cmd = messageArray[0];
+    let args = messageArray.slice(1);
+    let prefix = '!!';
+     
+    if(cmd === `${prefix}report`){
+        let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+        if(!rUser) return message.channel.send("Idk who  report ??");
+        let reason = args.join(" ").slice(22);
+        if(!reason) return message.channel.send("What is the reason ??");
+    
+        let reportEmbed = new Discord.RichEmbed()
+        .setTitle("User just reported...")
+        .setColor("#f7abab")
+        .addField("- Reported User :", `${rUser} (${rUser.id})`)
+        .addField("- Reported By :", `${message.author} (${message.author.id})`)
+        .addField("- Reported In :", message.channel)
+        .addField("- Report Time :", message.createdAt.toLocaleString(),true)
+        .addField("- Reason :", reason);
+    
+        let reportschannel = message.guild.channels.find(`name`, "reports");
+        if(!reportschannel) return message.channel.send("You should to make `reports` channel.");
+    
+    
+        message.delete().catch(O_o=>{});
+        message.author.send(`<@${rUser.id}>, Reported Successfully!!`)
+        reportschannel.send(reportEmbed);
+    };
+});
+
+
 
 
 
