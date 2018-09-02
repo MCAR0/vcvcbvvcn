@@ -124,24 +124,7 @@ hours = 12;
 
 
 
-client.on('message' , message => {
-var PREFIX = 'z';
-if(message.content === `${PREFIX}dis`) {
-                      let array = [];
-                      var i = 0;
-client.users.filter(u => u.discriminator == message.author.discriminator).map(u => {
-    if(i > 4){
-     return;
-    }
-    i = i + 1;
-   array.push(`${u.tag}`);
-});
-hastebin(`${array.slice(0, 30).join('\n')}`, 'txt').then(l => {
-    message.channel.send(`${l}`);
-}).catch(console.error);
 
-        }
-});
 
 
 
